@@ -1,0 +1,7 @@
+{
+  "generator-ng-fullstack": {
+    "server": "Go",
+    "username": "ericmdantas",
+    "appName": "random-lunch"
+  }
+}
