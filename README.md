@@ -4,7 +4,7 @@
 
 # about
 
-> random-lunch: best ng-fullstack app ever!
+Enough discussions about where to eat. I'll pick the place.
 
 #LICENSE
 
