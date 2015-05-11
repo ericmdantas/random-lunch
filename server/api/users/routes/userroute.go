@@ -1,7 +1,7 @@
 package userroutes
 
 import (
-	"github.com/ericmdantas/random-lunch/server/api/users//controller"
+	"github.com/ericmdantas/random-lunch/server/api/users/controller"
 	"github.com/julienschmidt/httprouter"
 )
 

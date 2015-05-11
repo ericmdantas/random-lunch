@@ -2,11 +2,11 @@ package usercontroller
 
 import (
 	_ "encoding/json"
-	_ "github.com/ericmdantas/random-lunch/server/api/users//dao"
-	_ user "github.com/ericmdantas/random-lunch/server/api/users//model"
+	_ "github.com/ericmdantas/random-lunch/server/api/users/dao"
+	_ "github.com/ericmdantas/random-lunch/server/api/users/model"
 	"github.com/julienschmidt/httprouter"
 	_ "io/ioutil"
-	_ "net/http"
+	"net/http"
 )
 
 func GetAll(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {

@@ -20,6 +20,15 @@ func fillDB() {
 	}
 }
 
+func fillDBWithThese(ps ...place.Place) {
+	session, _ := mgo.Dial("localhost")
+	defer session.Close()
+
+	for _, _p := range ps {
+		session.DB("random-lunch").C("places").Insert(_p)
+	}
+}
+
 func cleanDB() {
 	session, _ := mgo.Dial("localhost")
 	defer session.Close()
@@ -38,20 +47,20 @@ func TestMain(m *testing.M) {
 func Test_All(t *testing.T) {
 	ps := []place.Place{}
 
-	f := func() {
-		All(&ps)
+	wf := func(p *[]place.Place) func() {
+		return func() {
+			*p, _ = All()
+		}
 	}
 
-	assert.NotPanics(t, f)
+	assert.NotPanics(t, wf(&ps))
 	assert.Equal(t, "some_name", ps[0].Name)
 	assert.Equal(t, "some_address", ps[0].Address)
 }
 
 func Benchmark_All(b *testing.B) {
-	ps := []place.Place{}
-
 	for i := 0; i < b.N; i++ {
-		All(&ps)
+		All()
 	}
 }
 
@@ -71,4 +80,41 @@ func Test_CreateNew(t *testing.T) {
 
 	assert.NotEmpty(t, err)
 	assert.Equal(t, errors.New("Invalid place."), err)
+}
+
+func Benchmark_CreateNew(b *testing.B) {
+	p := place.Place{Name: "some_name", Address: "some_address", Image: "some_image_url", LastTimeChosen: time.Now(), CreatedAt: time.Now()}
+
+	for i := 0; i < b.N; i++ {
+		CreateNew(&p)
+	}
+}
+
+func Test_Update(t *testing.T) {
+	p := place.Place{Id: bson.NewObjectId(), Name: "some_name", Address: "some_address", Image: "some_image_url", LastTimeChosen: time.Now(), CreatedAt: time.Now()}
+	pinv := place.Place{Name: "some_name", Address: "some_address", Image: "some_image_url", LastTimeChosen: time.Now(), CreatedAt: time.Now()}
+
+	fillDBWithThese(p)
+
+	err := Update(&p)
+
+	assert.Empty(t, err)
+
+	cleanDB()
+
+	fillDBWithThese(pinv)
+
+	err = Update(&p)
+
+	assert.NotEmpty(t, err)
+}
+
+func Benchmark_Update(b *testing.B) {
+	p := place.Place{Id: bson.NewObjectId(), Name: "some_name", Address: "some_address", Image: "some_image_url", LastTimeChosen: time.Now(), CreatedAt: time.Now()}
+
+	fillDBWithThese(p)
+
+	for i := 0; i < b.N; i++ {
+		Update(&p)
+	}
 }

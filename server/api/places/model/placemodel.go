@@ -22,3 +22,11 @@ func (p Place) IsValid() bool {
 
 	return true
 }
+
+func (p Place) IsNew() bool {
+	if p.Id != "" {
+		return false
+	}
+
+	return true
+}
