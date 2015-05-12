@@ -18,21 +18,19 @@ var KarmaConf = function(config)
     files:
       [
         'client/dev/bower_components/angular/angular.min.js',
-        'client/dev/bower_components/angular-socket-io/socket.min.js',
-        'client/dev/bower_components/angular-new-router/dist/router.es5.min.js',
-        'client/dev/bower_components/angular-resource/angular-resource.min.js',
-        'client/dev/bower_components/ng-xtorage/ng-xtorage.min.js',
+        'client/dev/bower_components/angular-new-router/dist/router.es5.js',
+        'client/dev/bower_components/angular-animate/angular-animate.js',
+        'client/dev/bower_components/angular-resource/angular-resource.js',
 
+        'client/dev/bower_components/angular-mocks/angular-mocks.js',
+
+        'client/dev/bower_components/ng-xtorage/ng-xtorage.js',
 
         'client/dev/js/app.js',
         'client/dev/js/**/*.js',
 
-        'client/dev/bower_components/angular-socket-io/mock/socket-io.js',
-        'client/dev/bower_components/angular-mocks/angular-mocks.js',
-
-        'tests/client/**/*_test.js',
-
         'client/dev/partials/includes/*.html' // for templateUrl testing
+
       ],
 
     // list of files to exclude

@@ -13,7 +13,6 @@ const coveralls = require('gulp-coveralls');
 const karma = require('karma').server;
 const browserSync = require('browser-sync');
 const wiredep = require('wiredep').stream;
-const inject = require('gulp-inject');
 
 const DEV_DIR = './client/dev/';
 const TEMP_DIR = './client/__tmp/'; // working on it dir
@@ -34,20 +33,6 @@ gulp.task('compile:babel', function()
     return gulp.src(['**/*.es6', '!node_modules/**'])
                .pipe(babel({optional: ['es7.decorators']}))
                .pipe(gulp.dest('.'));
-})
-
-gulp.task('inject:js:index', function()
-{
-  return gulp.src(_indexHTML)
-             .pipe(inject(gulp.src(['./client/dev/**/*.js', '!./client/dev/bower_components/**'], {read: false}), {relative: true}))
-             .pipe(gulp.dest('.'));
-})
-
-gulp.task('inject:css:index', function()
-{
-  return gulp.src(_indexHTML)
-             .pipe(inject(gulp.src(['./client/dev/css/*.{less,css}', '!./client/dev/bower_components/**'], {read: false}), {relative: true}))
-             .pipe(gulp.dest('.'));
 })
 
 gulp.task('bower', function()
@@ -144,7 +129,7 @@ gulp.task('browser_sync', function()
 gulp.task('build', ['del_dist', 'test_client', 'partials:dist', 'imgs:dist', 'fonts:dist', 'html,css,js:dist', 'components:dist']); // dist build
 gulp.task('build_temp', ['del_temp', 'partials:temp', 'imgs:temp', 'fonts:temp', 'html,css,js:temp', 'components:temp']); // browser-sync build
 
-gulp.task('watch', ['del_temp', 'inject:css:index', 'inject:js:index', 'bower', 'build_temp', 'browser_sync'], function()
+gulp.task('watch', ['del_temp', 'bower', 'build_temp', 'browser_sync'], function()
 {
   browserSync({proxy: "http://localhost:3333", reloadDelay: 1000});
 

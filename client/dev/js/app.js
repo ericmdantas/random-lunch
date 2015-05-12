@@ -3,11 +3,11 @@
   "use strict";
 
   angular
-    .module('myAwesomeApp', ['ngResource',
+    .module('randomLunch', [
+      'ngResource',
       'ngNewRouter',
-      'ngMessages',
-      'emd.ng-xtorage',
-      'ngMaterial'])
+      'ngAnimate',
+      'emd.ng-xtorage'])
     .config(['$locationProvider', function($locationProvider)
     {
       $locationProvider.html5Mode(true);
